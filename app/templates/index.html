@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Streaming Number</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='theme.css')}}">
+</head>
+<body>
+    <div>
+        <span class="left">Ind vs IRE:</span>
+        <span  class="right" id="number">{{ latest_number }}</span>
+    </div>
+    <script>
+        const eventSource = new EventSource('/stream_number');
+        
+        eventSource.onmessage = function(event) {
+            const numberElement = document.getElementById('number');
+            numberElement.innerText = event.data;
+        };
+    </script>
+</body>
+</html>
